@@ -43,6 +43,49 @@ class Planner:
             User request:
             {user_input}
 
+            STRICT RULES:
+            - ALWAYS replace variables with actual numbers from user question
+            - NEVER output placeholders like a, b, x, y
+            - NEVER output template examples
+            - ONLY output executable tool calls with real numbers
+
+            EXECUTION DSL CONTRACT (CRITICAL):
+
+            You are generating steps for a machine parser.
+
+            Allowed argument values:
+            1. Numbers only (2, 3, 10, 5.5)
+            2. The EXACT keyword: result
+
+            The ONLY valid chaining keyword is:
+            result
+
+            STRICTLY FORBIDDEN:
+            - result_of_anything
+            - previous_result
+            - step_result
+            - output_result
+            - any variable names
+            - any descriptive names
+            - any placeholders
+
+            CORRECT:
+            multiply(result,10)
+
+            WRONG:
+            multiply(result_of_calculate_sum,10)
+            multiply(previous_result,10)
+            multiply(sum_output,10)
+
+
+            GOOD:
+            calculate_sum(2,3)
+
+            BAD:
+            calculate_sum(a,b)
+            calculate_sum(x,y)
+            calculate_sum(num1,num2)
+
             Output format EXACTLY:
 
             PLAN:

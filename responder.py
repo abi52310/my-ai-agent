@@ -12,6 +12,9 @@ class Responder:
     
     def generate_response(self, user_query, final_result):
 
+        if isinstance(final_result, float) and final_result.is_integer():
+            final_result = int(final_result)
+
         prompt = f"""
             You are a response formatter for an AI system.
 
