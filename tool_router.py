@@ -8,6 +8,34 @@ class ToolRouter:
     def __init__(self, tool_registry):
         self.tool_registry = tool_registry
 
+    def execute_tool_direct(self, tool_name, args):
+
+        tool = self.tool_registry.get_tool(tool_name)
+
+        if not tool:
+            return {
+                "success": False,
+                "tool_name": tool_name,
+                "error": f"Tool {tool_name} not found"
+            }
+
+        try:
+            result = tool["function"](*args)
+
+            return {
+                "success": True,
+                "tool_name": tool_name,
+                "result": result
+            }
+
+        except Exception as e:
+            return {
+                "success": False,
+                "tool_name": tool_name,
+                "error": str(e)
+            }
+
+
     def execute_tool(self, tool_call):
 
         try:
